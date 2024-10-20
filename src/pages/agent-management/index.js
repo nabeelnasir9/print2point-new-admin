@@ -19,7 +19,9 @@ import Agentmodel from "../agent-management/Agent-model";
 
 const columns = [
   { id: "selected", label: "", minWidth: 30 },
-  { id: "CustomerName", label: "Customer Name", minWidth: 150 },
+  { id: "AgentName", label: "Agent Name", minWidth: 150 },
+  { id: "BusinessName", label: "Business Name", minWidth: 150 },
+
   {
     id: "Email",
     label: "Email",
@@ -63,161 +65,6 @@ const AgentManagement = () => {
   };
 
 
-  // [
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     email: "johndoe@gmail.com",
-  //     phone: "+1 610 450 0000",
-  //     createdDate: "21/07/2024",
-  //   },
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     email: "johndoe@gmail.com",
-  //     phone: "+1 610 450 0000",
-  //     createdDate: "21/07/2024",
-  //   },
-
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     email: "johndoe@gmail.com",
-  //     phone: "+1 610 450 0000",
-  //     createdDate: "21/07/2024",
-  //   },
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     email: "johndoe@gmail.com",
-  //     phone: "+1 610 450 0000",
-  //     createdDate: "21/07/2024",
-  //   },
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     email: "johndoe@gmail.com",
-  //     phone: "+1 610 450 0000",
-  //     createdDate: "21/07/2024",
-  //   },
-
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     email: "johndoe@gmail.com",
-  //     phone: "+1 610 450 0000",
-  //     createdDate: "21/07/2024",
-  //   },
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     email: "johndoe@gmail.com",
-  //     phone: "+1 610 450 0000",
-  //     createdDate: "21/07/2024",
-  //   },
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     email: "johndoe@gmail.com",
-  //     phone: "+1 610 450 0000",
-  //     createdDate: "21/07/2024",
-  //   },
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     email: "johndoe@gmail.com",
-  //     phone: "+1 610 450 0000",
-  //     createdDate: "21/07/2024",
-  //   },
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     email: "johndoe@gmail.com",
-  //     phone: "+1 610 450 0000",
-  //     createdDate: "21/07/2024",
-  //   },
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     email: "johndoe@gmail.com",
-  //     phone: "+1 610 450 0000",
-  //     createdDate: "21/07/2024",
-  //   },
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     email: "johndoe@gmail.com",
-  //     phone: "+1 610 450 0000",
-  //     createdDate: "21/07/2024",
-  //   },
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     email: "johndoe@gmail.com",
-  //     phone: "+1 610 450 0000",
-  //     createdDate: "21/07/2024",
-  //   },
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     email: "johndoe@gmail.com",
-  //     phone: "+1 610 450 0000",
-  //     createdDate: "21/07/2024",
-  //   },
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     email: "johndoe@gmail.com",
-  //     phone: "+1 610 450 0000",
-  //     createdDate: "21/07/2024",
-  //   },
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     email: "johndoe@gmail.com",
-  //     phone: "+1 610 450 0000",
-  //     createdDate: "21/07/2024",
-  //   },
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     email: "johndoe@gmail.com",
-  //     phone: "+1 610 450 0000",
-  //     createdDate: "21/07/2024",
-  //   },
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     email: "johndoe@gmail.com",
-  //     phone: "+1 610 450 0000",
-  //     createdDate: "21/07/2024",
-  //   },
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     email: "johndoe@gmail.com",
-  //     phone: "+1 610 450 0000",
-  //     createdDate: "21/07/2024",
-  //   },
-
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     email: "johndoe@gmail.com",
-  //     phone: "+1 610 450 0000",
-  //     createdDate: "21/07/2024",
-  //   },
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     email: "johndoe@gmail.com",
-  //     phone: "+1 610 450 0000",
-  //     createdDate: "21/07/2024",
-  //   },
-  // ]
-
-
-
   const [ordersList, setOrdersList] = useState([]);
   const [allSelected, setAllSelected] = useState(false);
 
@@ -249,6 +96,7 @@ const AgentManagement = () => {
         isSelected: false,
         id: job._id,
         customerName: job.full_name,
+        businessName: job.business_name,
         email: job.email,
         createdDate: new Date(job.created_at).toLocaleDateString(),
 
@@ -406,6 +254,9 @@ const AgentManagement = () => {
                             </TableCell>
                             <TableCell>
                               <p className="order-table-text">{row.customerName}</p>
+                            </TableCell>
+                            <TableCell>
+                              <p className="order-table-text">{row.businessName}</p>
                             </TableCell>
                             <TableCell>
                               <p className="order-table-text">{row.email}</p>

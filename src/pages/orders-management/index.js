@@ -19,9 +19,21 @@ import Loader from '../../components/Loader/Loader'
 const columns = [
   { id: "selected", label: "", minWidth: 30 },
   { id: "CustomerName", label: "Customer Name", minWidth: 120 },
+  { id: "AgentName", label: "Agent Name", minWidth: 120 },
+
   {
     id: "Pages",
     label: "Pages",
+    minWidth: 50,
+  },
+  {
+    id: "PrintJobTitle",
+    label: "Print Job Title",
+    minWidth: 50,
+  },
+  {
+    id: "PrintJobDes",
+    label: "Print Job Description",
     minWidth: 50,
   },
   {
@@ -44,11 +56,7 @@ const columns = [
     label: "Created Date",
     minWidth: 120,
   },
-  // {
-  //   id: "Action",
-  //   label: "Action",
-  //   minWidth: 100,
-  // },
+  
 ];
 
 const OrdersManagement = () => {
@@ -56,136 +64,6 @@ const OrdersManagement = () => {
   const [page, setPage] = React.useState(0);
   const [loading, setloading] = useState(false);
   let agent_token = localStorage.getItem("admin_access_token")
-  // [
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     pages: 2,
-  //     fileType: "PDF",
-  //     price: 200,
-  //     status: "Pending",
-  //     createdDate: "21/07/2024",
-  //   },
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     pages: 8,
-  //     fileType: "Excel",
-  //     price: 150,
-  //     status: "Completed",
-  //     createdDate: "21/07/2024",
-  //   },
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     pages: 2,
-  //     fileType: "PDF",
-  //     price: 200,
-  //     status: "Pending",
-  //     createdDate: "21/07/2024",
-  //   },
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     pages: 8,
-  //     fileType: "Excel",
-  //     price: 150,
-  //     status: "Completed",
-  //     createdDate: "21/07/2024",
-  //   },
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     pages: 2,
-  //     fileType: "PDF",
-  //     price: 200,
-  //     status: "Pending",
-  //     createdDate: "21/07/2024",
-  //   },
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     pages: 8,
-  //     fileType: "Excel",
-  //     price: 150,
-  //     status: "Completed",
-  //     createdDate: "21/07/2024",
-  //   },
-
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     pages: 2,
-  //     fileType: "PDF",
-  //     price: 200,
-  //     status: "Pending",
-  //     createdDate: "21/07/2024",
-  //   },
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     pages: 8,
-  //     fileType: "Excel",
-  //     price: 150,
-  //     status: "Completed",
-  //     createdDate: "21/07/2024",
-  //   },
-
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     pages: 2,
-  //     fileType: "PDF",
-  //     price: 200,
-  //     status: "Pending",
-  //     createdDate: "21/07/2024",
-  //   },
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     pages: 8,
-  //     fileType: "Excel",
-  //     price: 150,
-  //     status: "Completed",
-  //     createdDate: "21/07/2024",
-  //   },
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     pages: 2,
-  //     fileType: "PDF",
-  //     price: 200,
-  //     status: "Pending",
-  //     createdDate: "21/07/2024",
-  //   },
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     pages: 8,
-  //     fileType: "Excel",
-  //     price: 150,
-  //     status: "Completed",
-  //     createdDate: "21/07/2024",
-  //   },
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     pages: 2,
-  //     fileType: "PDF",
-  //     price: 200,
-  //     status: "Pending",
-  //     createdDate: "21/07/2024",
-  //   },
-  //   {
-  //     isSelected: false,
-  //     customerName: "John Doe",
-  //     pages: 8,
-  //     fileType: "Excel",
-  //     price: 150,
-  //     status: "Completed",
-  //     createdDate: "21/07/2024",
-  //   },
-  // ]
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
@@ -224,8 +102,11 @@ const OrdersManagement = () => {
 
       const dynamicOrders = orders.data.printJobs.map((job) => ({
         isSelected: false,
-        customerName: job.customer_id?._id,
+        customerName: job.customer_id?.full_name,
+        agentName: job.print_agent_id?.full_name,
         pages: job.pages,
+        printJobTitle: job.print_job_title,
+        printJobDesc: job.print_job_description,
         fileType: job.file_path.endsWith('.pdf') ? 'PDF' : 'Unknown',
         price: job.total_cost,
         status: job.payment_status.charAt(0).toUpperCase() + job.payment_status.slice(1),
@@ -358,7 +239,16 @@ const OrdersManagement = () => {
                               <p className="order-table-text">{row.customerName}</p>
                             </TableCell>
                             <TableCell>
+                              <p className="order-table-text">{row.agentName}</p>
+                            </TableCell>
+                            <TableCell>
                               <p className="order-table-text">{row.pages}</p>
+                            </TableCell>
+                            <TableCell>
+                              <p className="order-table-text">{row.printJobTitle}</p>
+                            </TableCell>
+                            <TableCell>
+                              <p className="order-table-text">{row.printJobDesc}</p>
                             </TableCell>
                             <TableCell>
                               <p className="order-table-text">{row.fileType}</p>

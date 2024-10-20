@@ -180,7 +180,7 @@ export const SideMenu = (props) => {
                                   </span>
                                 </Button>
                               </li>
-                              <li className="side-menu-list-item">
+                              {/* <li className="side-menu-list-item">
                                 <Button
                                   variant="text"
                                   className={
@@ -197,7 +197,7 @@ export const SideMenu = (props) => {
                                     support
                                   </span>
                                 </Button>
-                              </li>
+                              </li> */}
                               <br />
                             </ul>
                           </div>
@@ -226,25 +226,8 @@ export const SideMenu = (props) => {
                   </div>
 
                   <div className="side-menu-header">
-                    <div className="header-online">
-                      <label class="switch">
-                        <input
-                          type="checkbox"
-                          checked={isOnline}
-                          onChange={() => setIsOnline(!isOnline)}
-                        />
-                        <span class="slider round"></span>
-                      </label>
-                      <p>{isOnline ? "Online" : "Offline"}</p>
-                    </div>
 
                     <div>
-                      <Button variant="text" className="side-menu-notificatin">
-                        <img src={Search2} />
-                      </Button>
-                      <Button variant="text" className="side-menu-notificatin">
-                        <img src={Notification} />
-                      </Button>
                       <Button variant="text" className="side-menu-profile">
                         <img src="https://a.storyblok.com/f/191576/1200x800/faa88c639f/round_profil_picture_before_.webp" />
                       </Button>

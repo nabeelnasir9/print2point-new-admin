@@ -96,27 +96,8 @@ const Login = () => {
                       setShowLoginPassword(!showLoginPassword)
                     }
                   />
-                  <div className="remember-main">
-                    <button onClick={() => setRemember(!remember)}>
-                      <div
-                        style={{
-                          backgroundColor: remember ? "#F7801A" : "#fff",
-                        }}
-                      >
-                        {remember && <FaCheck style={{ color: "#fff" }} />}
-                      </div>
-                      <p>Remember me</p>
-                    </button>
-
-                    <Link className="forget-password-link">
-                      Forget Password?
-                    </Link>
-                  </div>
                   <Button title="Login" onClick={loginHandler} />
-                  <p className="modal-form-footer">
-                    Don’t have an account?{" "}
-                    <Link className="modal-form-footer-link">Sign up</Link>
-                  </p>
+                 
                 </div>
               </div>
             </Grid>

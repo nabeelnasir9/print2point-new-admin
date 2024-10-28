@@ -285,13 +285,13 @@ const Support = () => {
                       </TableCell>
                       <TableCell>
                         <Button className="order-table-action-btn">
-                          <img src={Edit} />
+                          <img src={Edit} alt="" />
                         </Button>
                         <Button
                           className="order-table-action-btn"
                           style={{ marginLeft: "15px" }}
                         >
-                          <img src={Delete} />
+                          <img src={Delete} alt=""/>
                         </Button>
                       </TableCell>
                     </TableRow>

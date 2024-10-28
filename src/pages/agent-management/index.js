@@ -21,10 +21,14 @@ const columns = [
   { id: "selected", label: "", minWidth: 30 },
   { id: "AgentName", label: "Agent Name", minWidth: 150 },
   { id: "BusinessName", label: "Business Name", minWidth: 150 },
-
   {
     id: "Email",
     label: "Email",
+    minWidth: 120,
+  },
+  {
+    id: "Availability",
+    label: "Online Availability",
     minWidth: 120,
   },
   // {
@@ -99,8 +103,7 @@ const AgentManagement = () => {
         businessName: job.business_name,
         email: job.email,
         createdDate: new Date(job.created_at).toLocaleDateString(),
-
-        businessName: job.business_name,
+        available: job.is_available,
         businessType: job.business_type,
         ...job,
       }));
@@ -260,6 +263,9 @@ const AgentManagement = () => {
                             </TableCell>
                             <TableCell>
                               <p className="order-table-text">{row.email}</p>
+                            </TableCell>
+                            <TableCell>
+                              <p className="order-table-text">{row.available ? "No" : "Yes"}</p>
                             </TableCell>
                             {/* <TableCell>
                         <p className="order-table-text">{row.phone}</p>

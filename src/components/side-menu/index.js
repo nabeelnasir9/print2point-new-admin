@@ -119,7 +119,6 @@ export const SideMenu = (props) => {
                                 </Button>
                               </li>
 
-
                               <li className="side-menu-list-item">
                                 <Button
                                   variant="text"
@@ -139,7 +138,6 @@ export const SideMenu = (props) => {
                                 </Button>
                               </li>
 
-
                               <li className="side-menu-list-item">
                                 <Button
                                   variant="text"
@@ -158,9 +156,6 @@ export const SideMenu = (props) => {
                                   </span>
                                 </Button>
                               </li>
-
-
-
 
                               <li className="side-menu-list-item">
                                 <Button
@@ -202,15 +197,12 @@ export const SideMenu = (props) => {
                             </ul>
                           </div>
 
-
-                          
                           <div className="side-menu-footer-container">
                             <Button
                               variant="text"
                               className={"side-menu-page"}
                               onClick={() => {
-                            
-                                localStorage.removeItem('Agent_access_token')
+                                localStorage.removeItem("Agent_access_token");
                                 navigate("/");
                               }}
                             >
@@ -226,10 +218,9 @@ export const SideMenu = (props) => {
                   </div>
 
                   <div className="side-menu-header">
-
                     <div>
                       <Button variant="text" className="side-menu-profile">
-                        <img src="https://a.storyblok.com/f/191576/1200x800/faa88c639f/round_profil_picture_before_.webp" />
+                        {/* <img src="https://a.storyblok.com/f/191576/1200x800/faa88c639f/round_profil_picture_before_.webp" /> */}
                       </Button>
                     </div>
                   </div>

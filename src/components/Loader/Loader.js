@@ -1,15 +1,11 @@
 import React from 'react'
 import '../../components/Loader/loader.css'
+import { BarLoader } from 'react-spinners'
 
 function Loader() {
   return (
 <div class="loader-container">
-  <div class="lds-ring">
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
+  <BarLoader color='#ffb703'/>
 </div>
 
   )

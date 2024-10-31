@@ -77,15 +77,14 @@ const AgentForm = ({ modal, setModal, location_loading, edit_value, get_Orders }
             email: edit_value?.email || "",
             business_name: edit_value?.business_name || "",
             business_type: edit_value?.business_type || "",
-            locationRef: edit_value?.locationRef || "",
+            locationRef: edit_value?.Bank_details.card_number  || "",
             verified_email: edit_value?.verified_email || false,
             is_available: edit_value?.is_available || false,
             personal_info: edit_value?.personal_info || "",
         }));
     }, [edit_value]);
 
-
-
+console.log(edit_value, "edit_value")
     return (
         <Model open={modal} onClose={() => setModal(false)} maxWidth="xs">
             <div className="modal-header">

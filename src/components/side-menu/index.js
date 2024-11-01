@@ -175,7 +175,7 @@ export const SideMenu = (props) => {
                                   </span>
                                 </Button>
                               </li>
-                              {/* <li className="side-menu-list-item">
+                              <li className="side-menu-list-item">
                                 <Button
                                   variant="text"
                                   className={
@@ -192,7 +192,7 @@ export const SideMenu = (props) => {
                                     support
                                   </span>
                                 </Button>
-                              </li> */}
+                              </li>
                               <br />
                             </ul>
                           </div>

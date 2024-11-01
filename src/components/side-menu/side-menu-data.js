@@ -118,7 +118,7 @@ const SideMenuData = () => {
                     <span className="side-menu-page-title">manage cities</span>
                   </Button>
                 </li>
-                {/* <li className="side-menu-list-item">
+                <li className="side-menu-list-item">
                   <Button
                     variant="text"
                     className={
@@ -133,7 +133,7 @@ const SideMenuData = () => {
                     <img src={Support} />
                     <span className="side-menu-page-title">support</span>
                   </Button>
-                </li> */}
+                </li>
                 <br />
               </ul>
             </div>

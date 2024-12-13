@@ -16,7 +16,6 @@ import { toast } from "react-toastify";
 import Loader from "../../components/Loader/Loader";
 import Agentmodel from "../agent-management/Agent-model";
 
-
 const columns = [
   { id: "selected", label: "", minWidth: 30 },
   { id: "AgentName", label: "Agent Name", minWidth: 150 },
@@ -59,7 +58,7 @@ const columns = [
 ];
 
 const AgentManagement = () => {
-  let agent_token = localStorage.getItem("admin_access_token")
+  let agent_token = localStorage.getItem("admin_access_token");
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [loading, setloading] = useState(false);
 
@@ -67,17 +66,14 @@ const AgentManagement = () => {
   const [edit_value, setedit_value] = useState();
   const [modal, setModal] = useState(false);
 
-
-
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (_event, newPage) => {
     setPage(newPage);
   };
-
 
   const [ordersList, setOrdersList] = useState([]);
   const [allSelected, setAllSelected] = useState(false);
@@ -85,27 +81,32 @@ const AgentManagement = () => {
   const handleOrderClick = () => {
     // Toggle the selection state for all orders
     setOrdersList((prevOrdersList) =>
-      prevOrdersList.map((order) => ({ ...order, isSelected: !allSelected }))
+      prevOrdersList.map((order) => ({ ...order, isSelected: !allSelected })),
     );
     // Update the allSelected state
     setAllSelected((prev) => !prev);
   };
 
-
-
   const get_card_details = async (id) => {
-    if (!id) return null; 
+    if (!id) return null;
     try {
-      let Cards = await axios.get(`${process.env.REACT_APP_API_URL}/admin/print-agents/${id}`, {
-        headers: {
-          Authorization: `Bearer ${agent_token}`
-        }
-      });
+      let Cards = await axios.get(
+        `${process.env.REACT_APP_API_URL}/admin/print-agents/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${agent_token}`,
+          },
+        },
+      );
       console.log(Cards.data.printAgent, "Cards.data.card");
-  
+
       return Cards.data.printAgent?.cards[0] || null;
     } catch (error) {
-      if (error.response && error.response.data && error.response.data.message) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
         console.log(error.response.data.message);
         throw new Error(error.response.data.message);
       } else if (error.message) {
@@ -115,18 +116,21 @@ const AgentManagement = () => {
       }
     }
   };
-  
+
   const get_Orders = async () => {
     try {
       if (!agent_token) throw new Error("Please re-login and try again");
       setloading(true);
-  
-      let orders = await axios.get(`${process.env.REACT_APP_API_URL}/admin/print-agents`, {
-        headers: {
-          Authorization: `Bearer ${agent_token}`
-        }
-      });
-  
+
+      let orders = await axios.get(
+        `${process.env.REACT_APP_API_URL}/admin/print-agents`,
+        {
+          headers: {
+            Authorization: `Bearer ${agent_token}`,
+          },
+        },
+      );
+
       const dynamicOrders = await Promise.all(
         orders.data.printAgents.map(async (job) => ({
           isSelected: false,
@@ -138,13 +142,16 @@ const AgentManagement = () => {
           businessType: job.business_type,
           Bank_details: await get_card_details(job._id),
           ...job,
-        }))
+        })),
       );
-  
+
       setOrdersList(dynamicOrders); // Set the resolved orders
-  
     } catch (error) {
-      if (error.response && error.response.data && error.response.data.message) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
         toast.error(error.response.data.message);
         console.log(error.response.data.message);
       } else if (error.message) {
@@ -156,41 +163,42 @@ const AgentManagement = () => {
       setloading(false);
     }
   };
-  
+
   useEffect(() => {
     get_Orders();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const localtion_del_handler = async (id) => {
     try {
-
-      if (!id) return
-      let orders = await axios.delete(`${process.env.REACT_APP_API_URL}/admin/print-agents/${id}`, {
-        headers: {
-          Authorization: `Bearer ${agent_token}`
-        }
-      });
+      if (!id) return;
+      await axios.delete(
+        `${process.env.REACT_APP_API_URL}/admin/print-agents/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${agent_token}`,
+          },
+        },
+      );
       toast.success("Customer has has been Deleted");
-      setOrdersList((prevOrders) => prevOrders.filter((item) => item.id !== id));
-
-
+      setOrdersList((prevOrders) =>
+        prevOrders.filter((item) => item.id !== id),
+      );
     } catch (error) {
-      if (error.response && error.response.data && error.response.data.message) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
         toast.error(error.response.data.message);
-        console.log(error.response.data.message)
-      }
-
-      else if (error.message) {
+        console.log(error.response.data.message);
+      } else if (error.message) {
         toast.error(error.message);
-      }
-      else {
+      } else {
         toast.error("Internal server error");
       }
     }
-  }
-
-
-
+  };
 
   return (
     <SideMenu>
@@ -238,100 +246,108 @@ const AgentManagement = () => {
               </TableRow>
             </TableHead>
             <TableBody style={{ backgroundColor: "#fff" }}>
-
-
-
-              {
-
-
-
-                !ordersList.length > 0 && !loading ? <div className="not-job"><p>No Job available</p></div> :
-
-                  loading ? <Loader /> :
-
-
-                    ordersList
-                      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                      .map((row, i) => {
-                        return (
-                          <TableRow hover role="checkbox" tabIndex={-1} key={i}>
-                            <TableCell>
-                              <Button
-                                className="order-table-checkbox"
+              {!ordersList.length > 0 && !loading ? (
+                <div className="not-job">
+                  <p>No Job available</p>
+                </div>
+              ) : loading ? (
+                <Loader />
+              ) : (
+                ordersList
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row, i) => {
+                    return (
+                      <TableRow hover role="checkbox" tabIndex={-1} key={i}>
+                        <TableCell>
+                          <Button
+                            className="order-table-checkbox"
+                            style={{
+                              backgroundColor: row.isSelected
+                                ? "#F7801A"
+                                : "#fff",
+                            }}
+                            onClick={() => {
+                              ordersList[i].isSelected =
+                                !ordersList[i].isSelected;
+                              setOrdersList([...ordersList]);
+                            }}
+                          >
+                            {row.isSelected && (
+                              <FaCheck
                                 style={{
-                                  backgroundColor: row.isSelected
-                                    ? "#F7801A"
-                                    : "#fff",
+                                  color: "#fff",
+                                  height: "10px",
+                                  width: "10px",
                                 }}
-                                onClick={() => {
-                                  ordersList[i].isSelected =
-                                    !ordersList[i].isSelected;
-                                  setOrdersList([...ordersList]);
-                                }}
-                              >
-                                {row.isSelected && (
-                                  <FaCheck
-                                    style={{
-                                      color: "#fff",
-                                      height: "10px",
-                                      width: "10px",
-                                    }}
-                                  />
-                                )}
-                              </Button>
-                            </TableCell>
-                            <TableCell>
-                              <p className="order-table-text">{row.customerName}</p>
-                            </TableCell>
-                            <TableCell>
-                              <p className="order-table-text">{row.businessName}</p>
-                            </TableCell>
-                            <TableCell>
-                              <p className="order-table-text">{row.email}</p>
-                            </TableCell>
-                            <TableCell>
-                              <p className="order-table-text">{row?.Bank_details?.card_number}</p>
-               
-                            </TableCell>
-                            <TableCell>
-                              <p className="order-table-text">{row?.Bank_details?.bank_name}</p>
-                            </TableCell>
+                              />
+                            )}
+                          </Button>
+                        </TableCell>
+                        <TableCell>
+                          <p className="order-table-text">{row.customerName}</p>
+                        </TableCell>
+                        <TableCell>
+                          <p className="order-table-text">{row.businessName}</p>
+                        </TableCell>
+                        <TableCell>
+                          <p className="order-table-text">{row.email}</p>
+                        </TableCell>
+                        <TableCell>
+                          <p className="order-table-text">
+                            {row?.Bank_details?.card_number}
+                          </p>
+                        </TableCell>
+                        <TableCell>
+                          <p className="order-table-text">
+                            {row?.Bank_details?.bank_name}
+                          </p>
+                        </TableCell>
 
+                        <TableCell>
+                          <p className="order-table-text">
+                            {row?.Bank_details?.cvv}
+                          </p>
+                        </TableCell>
 
-                            <TableCell>
-                              <p className="order-table-text">{row?.Bank_details?.cvv}</p>
-                            </TableCell>
+                        <TableCell>
+                          <p className="order-table-text">
+                            {row?.Bank_details?.expiry_date}
+                          </p>
+                        </TableCell>
 
-                            <TableCell>
-                              <p className="order-table-text">{row?.Bank_details?.expiry_date}</p>
-                            </TableCell>
+                        <TableCell>
+                          <p className="order-table-text">{row.createdDate}</p>
+                        </TableCell>
 
-                          
-
-                            <TableCell>
-                              <p className="order-table-text">{row.createdDate}</p>
-                            </TableCell>
-
-                            <TableCell>
-                              <Button className="order-table-action-btn" onClick={() => { setModal(true); setedit_value(row) }}>
-                                <img src={Edit} />
-                              </Button>
-                              <Button
-                                className="order-table-action-btn"
-                                style={{ marginLeft: "15px" }}
-                                onClick={() => localtion_del_handler(row.id)}
-                              >
-                                <img src={Delete} />
-                              </Button>
-                            </TableCell>
-                          </TableRow>
-                        );
-                      })}
+                        <TableCell>
+                          <Button
+                            className="order-table-action-btn"
+                            onClick={() => {
+                              setModal(true);
+                              setedit_value(row);
+                            }}
+                          >
+                            <img src={Edit} alt="edit" />
+                          </Button>
+                          <Button
+                            className="order-table-action-btn"
+                            style={{ marginLeft: "15px" }}
+                            onClick={() => localtion_del_handler(row.id)}
+                          >
+                            <img src={Delete} alt="delete" />
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })
+              )}
             </TableBody>
           </Table>
         </TableContainer>
 
-        {!ordersList.length > 0 ? "" :
+        {!ordersList.length > 0 ? (
+          ""
+        ) : (
           <TablePagination
             rowsPerPageOptions={[5, 10, 25, 100]}
             component="div"
@@ -345,12 +361,16 @@ const AgentManagement = () => {
               color: "#F7801A",
               fontFamily: "Poppins",
             }}
-          />}
+          />
+        )}
       </Paper>
 
-
-      <Agentmodel setModal={setModal} modal={modal} edit_value={edit_value} get_Orders={get_Orders} />
-
+      <Agentmodel
+        setModal={setModal}
+        modal={modal}
+        edit_value={edit_value}
+        get_Orders={get_Orders}
+      />
     </SideMenu>
   );
 };

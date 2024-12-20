@@ -176,6 +176,8 @@ const AgentForm = ({
         Verified Email
       </label>
 */}
+
+      <Input title="Percentage" type="text" name="percentage" placeholder="Percentage" value={formData.percentage} onChange={handleChange} />
       <label>
         <input
           type="checkbox"

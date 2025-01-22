@@ -149,16 +149,20 @@ const Support = () => {
                         <p className="order-table-text">{row.email}</p>
                       </TableCell>
                       <TableCell>
-                        <p className="order-table-text">{row.bank.bank_name}</p>
-                      </TableCell>
-                      <TableCell>
                         <p className="order-table-text">
-                          {row.bank.bank_number}
+                          {row.bank?.bank_name ? row.bank.bank_name : "N/A"}
                         </p>
                       </TableCell>
                       <TableCell>
                         <p className="order-table-text">
-                          {row.bank.full_name_bank}
+                          {row.bank?.bank_number ? row.bank.bank_number : "N/A"}
+                        </p>
+                      </TableCell>
+                      <TableCell>
+                        <p className="order-table-text">
+                          {row.bank?.full_name_bank
+                            ? row.bank.full_name_bank
+                            : "N/A"}
                         </p>
                       </TableCell>
                       <TableCell>

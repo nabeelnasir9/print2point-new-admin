@@ -55,6 +55,12 @@ const columns = [
     minWidth: 150,
   },
   {
+    id: "CreatedTime",
+    label: "Time Created",
+    minWidth: 120,
+  },
+
+  {
     id: "CreatedDate",
     label: "Created Date",
     minWidth: 120,
@@ -102,24 +108,35 @@ const OrdersManagement = () => {
 
       console.log(orders, "order");
 
-      const dynamicOrders = orders.data.printJobs.map((job) => ({
-        isSelected: false,
-        customerName: job.customer_id?.full_name,
-        agentName: job.print_agent_id?.full_name,
-        businessName: job.print_agent_id?.business_name,
-        agentEmail: job.print_agent_id?.email,
-        copies: job.no_of_copies,
-        color: job.is_color,
-        pages: job.pages,
-        printJobTitle: job.print_job_title,
-        printJobDesc: job.print_job_description,
-        fileType: job.file_path.endsWith(".pdf") ? "PDF" : "Unknown",
-        price: job.total_cost,
-        status:
-          job.payment_status.charAt(0).toUpperCase() +
-          job.payment_status.slice(1),
-        createdDate: new Date(job.created_at).toLocaleDateString(),
-      }));
+      const dynamicOrders = orders.data.printJobs.map((job) => {
+        const fullDate = new Date(job.created_at);
+
+        // Example: convert to a string like "2:30 AM"
+        const timeOnly = fullDate.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+        });
+        return {
+          isSelected: false,
+          customerName: job.customer_id?.full_name,
+          agentName: job.print_agent_id?.full_name,
+          businessName: job.print_agent_id?.business_name,
+          agentEmail: job.print_agent_id?.email,
+          copies: job.no_of_copies,
+          color: job.is_color,
+          pages: job.pages,
+          printJobTitle: job.print_job_title,
+          printJobDesc: job.print_job_description,
+          fileType: job.file_path.endsWith(".pdf") ? "PDF" : "Unknown",
+          price: job.total_cost,
+          status:
+            job.payment_status.charAt(0).toUpperCase() +
+            job.payment_status.slice(1),
+          createdDate: new Date(job.created_at).toLocaleDateString(),
+          createdTime: timeOnly,
+        };
+      });
 
       setOrdersList((prevOrders) => [...dynamicOrders]);
     } catch (error) {
@@ -277,6 +294,9 @@ const OrdersManagement = () => {
                           >
                             {row.status}
                           </p>
+                        </TableCell>
+                        <TableCell>
+                          <p className="order-table-text">{row.createdTime}</p>
                         </TableCell>
                         <TableCell>
                           <p className="order-table-text">{row.createdDate}</p>

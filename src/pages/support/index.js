@@ -18,8 +18,8 @@ const columns = [
   { id: "TicketNumber", label: "Order Number", minWidth: 120 },
   { id: "UserName", label: "User Name", minWidth: 100 },
   { id: "Email", label: "Email", minWidth: 200 },
+  { id: "BankNumber", label: "Phone Number", minWidth: 150 },
   { id: "BankName", label: "Bank Name", minWidth: 150 },
-  { id: "BankNumber", label: "Bank Number", minWidth: 150 },
   { id: "FullNameBank", label: "Bank Account Name", minWidth: 150 },
   { id: "Message", label: "Message", minWidth: 250 },
   { id: "Status", label: "Status", minWidth: 150 },
@@ -150,12 +150,12 @@ const Support = () => {
                       </TableCell>
                       <TableCell>
                         <p className="order-table-text">
-                          {row.bank?.bank_name ? row.bank.bank_name : "N/A"}
+                          {row.bank?.bank_number ? row.bank.bank_number : "N/A"}
                         </p>
                       </TableCell>
                       <TableCell>
                         <p className="order-table-text">
-                          {row.bank?.bank_number ? row.bank.bank_number : "N/A"}
+                          {row.bank?.bank_name ? row.bank.bank_name : "N/A"}
                         </p>
                       </TableCell>
                       <TableCell>
